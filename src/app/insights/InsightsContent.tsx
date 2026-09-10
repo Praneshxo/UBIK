@@ -37,21 +37,21 @@ const articles = [
     category: "Engineering",
     date: "Jun 30, 2026",
     readTime: "7 min read",
-    link: "#",
+    link: "/insights/scalable-nextjs-architectures-b2b",
   },
   {
     title: "Product Thinking over Feature Factories",
     category: "Product Thinking",
     date: "Jun 10, 2026",
     readTime: "4 min read",
-    link: "#",
+    link: "/insights/product-thinking-over-feature-factories",
   },
   {
     title: "Modern UI/UX principles for data-dense applications",
     category: "UI/UX Design",
     date: "May 22, 2026",
     readTime: "9 min read",
-    link: "#",
+    link: "/insights/modern-ui-ux-data-dense-apps",
   },
 ];
 
