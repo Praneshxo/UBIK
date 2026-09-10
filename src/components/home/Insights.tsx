@@ -3,30 +3,13 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, ArrowRight } from "lucide-react";
 import Link from "next/link";
+import { ARTICLES_LIST } from "@/data/insightsData";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
-
-const insights = [
-  {
-    id: 1,
-    title: "Why most startups build before they research.",
-    href: "/insights/startups-build-before-research",
-  },
-  {
-    id: 2,
-    title: "5 business processes you should automate right now.",
-    href: "/insights/5-business-processes-to-automate",
-  },
-  {
-    id: 3,
-    title: "Branding isn't just a logo. It's perception.",
-    href: "/insights/branding-perception-not-just-logo",
-  },
-];
 
 export function Insights() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -57,7 +40,7 @@ export function Insights() {
           opacity: 1,
           y: 0,
           duration: 0.7,
-          stagger: 0.15,
+          stagger: 0.1,
           ease: "power3.out",
           scrollTrigger: {
             trigger: ".insights-list",
@@ -83,36 +66,65 @@ export function Insights() {
         <div className="insights-header flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 border-b border-[#1E1715]/10">
           <div>
             <span className="text-sm sm:text-base font-bold tracking-[0.25em] text-[#6E6763] uppercase block">
-              05 / INSIGHTS
+              05 / UBIK INSIGHTS
             </span>
           </div>
 
-          <div>
+          <div className="flex flex-col md:items-end">
             <h2 className="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight text-[#1E1715]">
-              Latest Insights
+              Real UBIK <span className="text-[#D94A26]">Thinking</span>
             </h2>
+            <p className="text-sm sm:text-base text-[#6E6763] font-medium pt-2">
+              7 content types: How we research, design, build, and automate.
+            </p>
           </div>
         </div>
 
         {/* Insights Table List */}
         <div className="insights-list border-t border-b border-[#1E1715]/20 divide-y divide-[#1E1715]/20">
-          {insights.map((item) => (
+          {ARTICLES_LIST.map((item) => (
             <Link
-              key={item.id}
-              href={item.href}
-              className="insight-row group flex items-center justify-between py-8 sm:py-10 md:py-12 px-2 sm:px-4 transition-colors duration-300 hover:bg-[#1E1715]/[0.03] cursor-pointer"
+              key={item.slug}
+              href={`/insights/${item.slug}`}
+              className="insight-row group flex flex-col md:flex-row md:items-center justify-between py-6 sm:py-8 px-2 sm:px-4 transition-colors duration-300 hover:bg-[#1E1715]/[0.04] cursor-pointer gap-4 md:gap-8"
             >
-              {/* Insight Title */}
-              <h3 className="text-xl sm:text-2xl md:text-3xl font-medium tracking-tight text-[#1E1715] group-hover:text-black transition-colors duration-300 pr-6 max-w-4xl leading-snug">
-                {item.title}
-              </h3>
+              {/* Meta: Number + Category */}
+              <div className="flex items-center gap-3 shrink-0">
+                <span className="px-2.5 py-1 rounded bg-[#141312] text-white text-xs font-mono font-bold">
+                  {item.number}
+                </span>
+                <span className="text-xs font-mono font-bold tracking-widest text-[#D94A26] uppercase">
+                  {item.category}
+                </span>
+              </div>
+
+              {/* Title & Short Description */}
+              <div className="flex-1 space-y-1">
+                <h3 className="text-xl sm:text-2xl font-bold tracking-tight text-[#1E1715] group-hover:text-[#D94A26] transition-colors leading-snug">
+                  {item.title}
+                </h3>
+                <p className="text-sm text-[#6E6763] line-clamp-1 font-medium hidden sm:block">
+                  {item.shortDescription}
+                </p>
+              </div>
 
               {/* Arrow Up-Right Icon */}
-              <div className="flex-shrink-0">
-                <ArrowUpRight className="w-6 h-6 sm:w-8 sm:h-8 text-[#1E1715]/70 group-hover:text-black group-hover:translate-x-1 group-hover:-translate-y-1 transition-all duration-300" />
+              <div className="flex items-center gap-2 text-xs font-mono font-bold text-[#1E1715]/70 group-hover:text-[#D94A26] transition-colors shrink-0">
+                <span className="hidden md:inline uppercase tracking-wider">Read</span>
+                <ArrowUpRight className="w-5 h-5 sm:w-6 sm:h-6 text-[#1E1715]/70 group-hover:text-[#D94A26] group-hover:translate-x-1 group-hover:-translate-y-1 transition-all duration-300" />
               </div>
             </Link>
           ))}
+        </div>
+
+        {/* Bottom view all button */}
+        <div className="pt-4 flex justify-end">
+          <Link
+            href="/insights"
+            className="inline-flex items-center gap-2 px-6 py-3.5 bg-[#141312] text-white font-mono text-xs font-bold uppercase tracking-widest rounded-full hover:bg-[#D94A26] transition-colors shadow-md"
+          >
+            Explore All 7 Pieces <ArrowRight className="w-4 h-4" />
+          </Link>
         </div>
       </div>
     </section>
